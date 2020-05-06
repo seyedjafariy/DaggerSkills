@@ -40,11 +40,6 @@ class OkHttpModule {
 
     @Singleton
     @Provides
-    fun provideAuthTokenAdderInterceptor() =
-        AuthTokenAdderInterceptor()
-
-    @Singleton
-    @Provides
     fun provideAuthInterceptor(interceptor : AuthTokenAdderInterceptor) : Interceptor =
         interceptor
 

@@ -32,17 +32,8 @@ class AppModule(
 
     @Provides
     @Singleton
-    fun provideViewModelFactory() = ViewModelFactory()
-
-    @Provides
-    @Singleton
     fun provideViewModelProviderFactory(factory : ViewModelFactory) : ViewModelProvider.Factory =
         factory
-
-    @Provides
-    @Singleton
-    fun provideRepositoryImpl(database : DaggerDatabase) : UserRepositoryImpl =
-        UserRepositoryImpl(database)
 
     @Provides
     @Singleton
