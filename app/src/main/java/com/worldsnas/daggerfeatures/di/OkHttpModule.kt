@@ -20,7 +20,6 @@ import javax.inject.Singleton
 @Module
 class OkHttpModule {
 
-    @Singleton
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         val httpLoggingInterceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
@@ -35,7 +34,6 @@ class OkHttpModule {
         return httpLoggingInterceptor
     }
 
-    @Singleton
     @Provides
     fun provideOkhttpCache(app: Application): Cache =
         Cache(app.cacheDir, 50_000_000)
