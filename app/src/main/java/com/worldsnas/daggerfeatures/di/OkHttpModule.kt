@@ -40,7 +40,6 @@ class OkHttpModule {
     fun provideOkhttpCache(app: Application): Cache =
         Cache(app.cacheDir, 50_000_000)
 
-    @Singleton
     @Provides
     fun provideAuthInterceptor(interceptor : AuthTokenAdderInterceptor) : Interceptor =
         interceptor
@@ -61,8 +60,10 @@ class OkHttpModule {
 
     @Provides
     @OkHttpQualifier
-    fun secondOkHttp(): OkHttpClient =
-        OkHttpClient.Builder()
+    @Singleton
+    fun secondOkHttp(client : OkHttpClient): OkHttpClient =
+        client.newBuilder()
+                //new logic
             .build()
 
     @Provides
@@ -71,7 +72,6 @@ class OkHttpModule {
 
 
     @Provides
-    @Singleton
     fun provideMoshiConverter(moshi: Moshi) = MoshiConverterFactory.create(moshi)
 
     @Provides
@@ -86,7 +86,6 @@ class OkHttpModule {
         .build()
 
     @Provides
-    @Singleton
     fun provideUserAPI(
         retrofit : Retrofit
     ): UserAPI = retrofit.create()

@@ -13,7 +13,6 @@ class DatabaseModule {
         DaggerDatabase_Impl()
 
     @Provides
-    @Singleton
     fun provideUserDAO(database : DaggerDatabase) : UserDao =
         database.userDao()
 }
