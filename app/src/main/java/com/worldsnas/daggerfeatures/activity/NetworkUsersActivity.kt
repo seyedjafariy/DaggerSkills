@@ -1,24 +1,21 @@
 package com.worldsnas.daggerfeatures.activity
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.worldsnas.daggerfeatures.DaggerApp
 import com.worldsnas.daggerfeatures.R
 import com.worldsnas.daggerfeatures.network.UserAPI
-import retrofit2.Retrofit
-import retrofit2.create
 import javax.inject.Inject
 
-class NetworkUsersActivity : BaseActivity() {
+class NetworkUsersActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var retrofit: Retrofit
+    lateinit var userApi: UserAPI
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val service: UserAPI = retrofit.create()
 
         DaggerApp.appComponent.inject(this)
     }

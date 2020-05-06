@@ -11,4 +11,9 @@ class DatabaseModule {
     @Singleton
     fun provideDatabaseImpl() : DaggerDatabase =
         DaggerDatabase_Impl()
+
+    @Provides
+    @Singleton
+    fun provideUserDAO(database : DaggerDatabase) : UserDao =
+        database.userDao()
 }

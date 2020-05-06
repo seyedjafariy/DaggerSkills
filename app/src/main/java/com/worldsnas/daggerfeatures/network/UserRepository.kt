@@ -1,7 +1,6 @@
 package com.worldsnas.daggerfeatures.network
 
 import androidx.lifecycle.LiveData
-import com.worldsnas.daggerfeatures.db.DaggerDatabase
 import com.worldsnas.daggerfeatures.db.UserDao
 import com.worldsnas.daggerfeatures.model.User
 import javax.inject.Inject
@@ -14,11 +13,8 @@ interface UserRepository {
 
 @Singleton
 class UserRepositoryImpl @Inject constructor(
-    database: DaggerDatabase
+    private val userDao: UserDao
 ) : UserRepository {
-
-    private val userDao: UserDao = database.userDao()
-
 
     override fun getAllLocalUsers() = userDao.allUsers()
 }

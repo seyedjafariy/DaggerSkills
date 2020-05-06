@@ -5,6 +5,7 @@ import android.util.Log
 import com.squareup.moshi.Moshi
 import com.worldsnas.daggerfeatures.BuildConfig.DEBUG
 import com.worldsnas.daggerfeatures.network.AuthTokenAdderInterceptor
+import com.worldsnas.daggerfeatures.network.UserAPI
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -13,6 +14,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -82,4 +84,10 @@ class OkHttpModule {
         .baseUrl("https://sample.com")
         .addConverterFactory(moshi)
         .build()
+
+    @Provides
+    @Singleton
+    fun provideUserAPI(
+        retrofit : Retrofit
+    ): UserAPI = retrofit.create()
 }
