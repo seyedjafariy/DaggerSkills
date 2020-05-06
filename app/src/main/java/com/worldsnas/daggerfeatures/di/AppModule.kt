@@ -8,16 +8,11 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class AppModule(
-    private val context: Application
-) {
+class AppModule{
 
     @Provides
-    fun provideApplication() = context
-
-    @Provides
-    fun provideSharedPreferences() =
-        context.getSharedPreferences("app", Context.MODE_PRIVATE)
+    fun provideSharedPreferences(app : Application) =
+        app.getSharedPreferences("app", Context.MODE_PRIVATE)
 
     @Provides
     fun provideRepository(repo : UserRepositoryImpl) : UserRepository =

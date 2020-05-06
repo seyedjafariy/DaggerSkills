@@ -15,8 +15,9 @@ class DaggerApp : Application() {
         appComponent = DaggerAppComponent
             .builder()
             .okHttpModule(OkHttpModule())
-            .appModule(AppModule(this))
+            .appModule(AppModule())
             .databaseModule(DatabaseModule())
+            .bindApplication(this)
             .build().also {
                 it.inject(this)
             }

@@ -1,5 +1,6 @@
 package com.worldsnas.daggerfeatures.di
 
+import android.app.Application
 import android.content.Context
 import com.worldsnas.daggerfeatures.DaggerApp
 import com.worldsnas.daggerfeatures.activity.ListActivity
@@ -12,6 +13,7 @@ import com.worldsnas.daggerfeatures.fragments.*
 import com.worldsnas.daggerfeatures.network.UserAPI
 import com.worldsnas.daggerfeatures.network.UserRepository
 import com.worldsnas.daggerfeatures.network.UserRepositoryImpl
+import dagger.BindsInstance
 import dagger.Component
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -56,4 +58,16 @@ interface AppComponent {
     fun inject(second: SecondFragment)
     fun inject(thirdFragment: ThirdFragment)
     fun inject(fourthFragment: FourthFragment)
+
+    @Component.Builder
+    interface Builder {
+
+        fun okHttpModule(module: OkHttpModule): Builder
+        fun appModule(module: AppModule): Builder
+        fun databaseModule(module: DatabaseModule): Builder
+
+        fun bindApplication(@BindsInstance app: Application): Builder
+
+        fun build(): AppComponent
+    }
 }
