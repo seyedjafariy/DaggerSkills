@@ -5,14 +5,16 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class DatabaseModule {
+object DatabaseModule {
 
     @Provides
     @Singleton
+    @JvmStatic
     fun provideDatabaseImpl() : DaggerDatabase =
         DaggerDatabase_Impl()
 
     @Provides
+    @JvmStatic
     fun provideUserDAO(database : DaggerDatabase) : UserDao =
         database.userDao()
 }

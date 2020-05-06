@@ -63,9 +63,6 @@ interface AppComponent {
     interface Factory {
 
         fun create(
-            okHttpModule: OkHttpModule,
-            appModule: AppModule,
-            databaseModule: DatabaseModule,
             @BindsInstance app : Application
         ) : AppComponent
     }

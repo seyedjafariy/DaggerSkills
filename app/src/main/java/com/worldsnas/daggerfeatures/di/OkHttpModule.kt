@@ -17,9 +17,10 @@ import retrofit2.create
 import javax.inject.Singleton
 
 @Module
-class OkHttpModule {
+object OkHttpModule {
 
     @Provides
+    @JvmStatic
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         val httpLoggingInterceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
             override fun log(message: String) {
@@ -34,11 +35,13 @@ class OkHttpModule {
     }
 
     @Provides
+    @JvmStatic
     fun provideOkhttpCache(app: Application): Cache =
         Cache(app.cacheDir, 50_000_000)
 
     @Provides
     @Singleton
+    @JvmStatic
     fun provideClient(
         loggingInterceptor: HttpLoggingInterceptor,
         authInterceptor: Interceptor,
@@ -54,6 +57,7 @@ class OkHttpModule {
     @Provides
     @OkHttpQualifier
     @Singleton
+    @JvmStatic
     fun secondOkHttp(client : OkHttpClient): OkHttpClient =
         client.newBuilder()
                 //new logic
@@ -61,14 +65,17 @@ class OkHttpModule {
 
     @Provides
     @Singleton
+    @JvmStatic
     fun provideMoshi() = Moshi.Builder().build()
 
 
     @Provides
+    @JvmStatic
     fun provideMoshiConverter(moshi: Moshi) = MoshiConverterFactory.create(moshi)
 
     @Provides
     @Singleton
+    @JvmStatic
     fun provideRetrofit(
         moshi: MoshiConverterFactory,
         client : OkHttpClient
@@ -79,6 +86,7 @@ class OkHttpModule {
         .build()
 
     @Provides
+    @JvmStatic
     fun provideUserAPI(
         retrofit : Retrofit
     ): UserAPI = retrofit.create()
