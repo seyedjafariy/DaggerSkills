@@ -3,8 +3,8 @@ package com.worldsnas.daggerfeatures.activity
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.worldsnas.daggerfeatures.DaggerApp
 import com.worldsnas.daggerfeatures.R
+import com.worldsnas.daggerfeatures.di.findAppComponent
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
@@ -19,6 +19,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        DaggerApp.appComponent.inject(this)
+        findAppComponent().inject(this)
     }
 }
