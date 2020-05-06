@@ -1,4 +1,4 @@
-package com.worldsnas.daggerfeatures.activity
+package com.worldsnas.daggerfeatures.activity.list
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +21,11 @@ class ListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findAppComponent().inject(this)
+        DaggerListComponent
+            .builder()
+            .appComponent(findAppComponent())
+            .build()
+            .inject(this)
 
         listViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T =

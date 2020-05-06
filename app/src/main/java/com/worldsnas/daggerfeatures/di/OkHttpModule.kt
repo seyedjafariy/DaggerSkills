@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import com.squareup.moshi.Moshi
 import com.worldsnas.daggerfeatures.BuildConfig.DEBUG
-import com.worldsnas.daggerfeatures.network.UserAPI
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
@@ -12,7 +11,6 @@ import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -86,10 +84,4 @@ object OkHttpModule {
         .baseUrl("https://sample.com")
         .addConverterFactory(moshi)
         .build()
-
-    @Provides
-    @JvmStatic
-    fun provideUserAPI(
-        retrofit : Retrofit
-    ): UserAPI = retrofit.create()
 }

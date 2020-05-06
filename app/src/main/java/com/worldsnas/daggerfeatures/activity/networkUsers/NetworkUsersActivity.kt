@@ -1,4 +1,4 @@
-package com.worldsnas.daggerfeatures.activity
+package com.worldsnas.daggerfeatures.activity.networkUsers
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +17,9 @@ class NetworkUsersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findAppComponent().inject(this)
+        DaggerNetworkUsersComponent.builder()
+            .appComponent(findAppComponent())
+            .build()
+            .inject(this)
     }
 }
