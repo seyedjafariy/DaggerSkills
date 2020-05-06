@@ -59,15 +59,14 @@ interface AppComponent {
     fun inject(thirdFragment: ThirdFragment)
     fun inject(fourthFragment: FourthFragment)
 
-    @Component.Builder
-    interface Builder {
+    @Component.Factory
+    interface Factory {
 
-        fun okHttpModule(module: OkHttpModule): Builder
-        fun appModule(module: AppModule): Builder
-        fun databaseModule(module: DatabaseModule): Builder
-
-        fun bindApplication(@BindsInstance app: Application): Builder
-
-        fun build(): AppComponent
+        fun create(
+            okHttpModule: OkHttpModule,
+            appModule: AppModule,
+            databaseModule: DatabaseModule,
+            @BindsInstance app : Application
+        ) : AppComponent
     }
 }

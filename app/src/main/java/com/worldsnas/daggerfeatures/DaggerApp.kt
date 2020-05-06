@@ -13,17 +13,19 @@ class DaggerApp : Application() {
         super.onCreate()
 
         appComponent = DaggerAppComponent
-            .builder()
-            .okHttpModule(OkHttpModule())
-            .appModule(AppModule())
-            .databaseModule(DatabaseModule())
-            .bindApplication(this)
-            .build().also {
+            .factory()
+            .create(
+                OkHttpModule(),
+                AppModule(),
+                DatabaseModule(),
+                this
+            )
+            .also {
                 it.inject(this)
             }
     }
 
-    companion object{
+    companion object {
 
         lateinit var appComponent: AppComponent
     }
