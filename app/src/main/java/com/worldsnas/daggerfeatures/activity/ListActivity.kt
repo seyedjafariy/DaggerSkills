@@ -7,18 +7,25 @@ import androidx.lifecycle.ViewModelProvider
 import com.worldsnas.daggerfeatures.DaggerApp
 import com.worldsnas.daggerfeatures.R
 import com.worldsnas.daggerfeatures.fragments.ListViewModel
+import javax.inject.Inject
+import javax.inject.Provider
 
 class ListActivity : AppCompatActivity() {
 
     lateinit var listViewModel: ListViewModel
 
+    @Inject
+    lateinit var viewModelProvider: Provider<ListViewModel>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        DaggerApp.appComponent.inject(this)
+
         listViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                DaggerApp.appComponent.provideListViewModel() as T
+                viewModelProvider.get() as T
         }).get(ListViewModel::class.java)
 
     }

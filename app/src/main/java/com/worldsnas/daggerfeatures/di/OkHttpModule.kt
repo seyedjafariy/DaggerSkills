@@ -5,11 +5,10 @@ import android.util.Log
 import com.squareup.moshi.Moshi
 import com.worldsnas.daggerfeatures.BuildConfig.DEBUG
 import com.worldsnas.daggerfeatures.network.UserAPI
+import dagger.Lazy
 import dagger.Module
 import dagger.Provides
-import okhttp3.Cache
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -78,9 +77,12 @@ object OkHttpModule {
     @JvmStatic
     fun provideRetrofit(
         moshi: MoshiConverterFactory,
-        client : OkHttpClient
+        client : Lazy<OkHttpClient>
     ) = Retrofit.Builder()
-        .client(client)
+        .callFactory(object : Call.Factory {
+            override fun newCall(request: Request): Call =
+                client.get().newCall(request)
+        })
         .baseUrl("https://sample.com")
         .addConverterFactory(moshi)
         .build()
