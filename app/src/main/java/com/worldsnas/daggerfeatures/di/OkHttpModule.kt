@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import com.squareup.moshi.Moshi
 import com.worldsnas.daggerfeatures.BuildConfig.DEBUG
-import com.worldsnas.daggerfeatures.network.AuthTokenAdderInterceptor
 import com.worldsnas.daggerfeatures.network.UserAPI
 import dagger.Module
 import dagger.Provides
@@ -37,10 +36,6 @@ class OkHttpModule {
     @Provides
     fun provideOkhttpCache(app: Application): Cache =
         Cache(app.cacheDir, 50_000_000)
-
-    @Provides
-    fun provideAuthInterceptor(interceptor : AuthTokenAdderInterceptor) : Interceptor =
-        interceptor
 
     @Provides
     @Singleton
