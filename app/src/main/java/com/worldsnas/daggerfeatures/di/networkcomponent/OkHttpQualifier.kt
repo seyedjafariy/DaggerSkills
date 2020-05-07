@@ -1,4 +1,4 @@
-package com.worldsnas.daggerfeatures.di
+package com.worldsnas.daggerfeatures.di.networkcomponent
 
 import javax.inject.Qualifier
 

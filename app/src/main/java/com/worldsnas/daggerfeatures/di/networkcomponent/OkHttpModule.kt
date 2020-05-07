@@ -1,4 +1,4 @@
-package com.worldsnas.daggerfeatures.di
+package com.worldsnas.daggerfeatures.di.networkcomponent
 
 import android.app.Application
 import android.util.Log
@@ -11,7 +11,6 @@ import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module
 object OkHttpModule {
@@ -37,7 +36,7 @@ object OkHttpModule {
         Cache(app.cacheDir, 50_000_000)
 
     @Provides
-    @Singleton
+    @NetworkScope
     @JvmStatic
     fun provideClient(
         loggingInterceptor: HttpLoggingInterceptor,
@@ -53,7 +52,7 @@ object OkHttpModule {
 
     @Provides
     @OkHttpQualifier
-    @Singleton
+    @NetworkScope
     @JvmStatic
     fun secondOkHttp(client : OkHttpClient): OkHttpClient =
         client.newBuilder()
@@ -61,7 +60,7 @@ object OkHttpModule {
             .build()
 
     @Provides
-    @Singleton
+    @NetworkScope
     @JvmStatic
     fun provideMoshi() = Moshi.Builder().build()
 
@@ -71,7 +70,7 @@ object OkHttpModule {
     fun provideMoshiConverter(moshi: Moshi) = MoshiConverterFactory.create(moshi)
 
     @Provides
-    @Singleton
+    @NetworkScope
     @JvmStatic
     fun provideRetrofit(
         moshi: MoshiConverterFactory,

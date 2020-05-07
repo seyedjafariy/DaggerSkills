@@ -1,46 +1,25 @@
 package com.worldsnas.daggerfeatures.di
 
-import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
-import androidx.lifecycle.ViewModelProvider
 import com.worldsnas.daggerfeatures.DaggerApp
-import com.worldsnas.daggerfeatures.db.DaggerDatabase
-import com.worldsnas.daggerfeatures.db.DatabaseModule
-import com.worldsnas.daggerfeatures.db.UserDao
-import com.worldsnas.daggerfeatures.network.UserRepository
-import com.worldsnas.daggerfeatures.network.UserRepositoryImpl
+import com.worldsnas.daggerfeatures.di.contextcomponent.ContextComponent
+import com.worldsnas.daggerfeatures.di.databasecomponent.DatabaseComponent
+import com.worldsnas.daggerfeatures.di.networkcomponent.NetworkComponent
+import com.worldsnas.daggerfeatures.di.sharedprefcomponent.SharedPreferencesComponent
 import dagger.BindsInstance
 import dagger.Component
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
 import javax.inject.Singleton
+
 
 @AppScope
 @Singleton
 @Component(
-    modules = [
-        DatabaseModule::class,
-        OkHttpModule::class,
-        AppModule::class,
-        BinderModule::class
-    ]
 )
 interface AppComponent {
 
-    fun provideDatabase(): DaggerDatabase
-    fun provideOkHttp(): OkHttpClient
-
-    @OkHttpQualifier
-    fun secondOkHttp(): OkHttpClient
-    fun provideRetrofit(): Retrofit
-    fun provideContext(): Context
-    fun provideApplication(): Context
-    fun provideRepositoryImpl(): UserRepositoryImpl
-    fun provideRepository(): UserRepository
-    fun provideUserDao(): UserDao
-    fun provideSharedPreferences() : SharedPreferences
-    fun provideViewModelFactory() : ViewModelProvider.Factory
+    fun provideContextComponent(): ContextComponent
+    fun provideNetworkComponent(): NetworkComponent
+    fun provideDatabaseComponent(): DatabaseComponent
+    fun provideSharedPrefComponent(): SharedPreferencesComponent
 
     fun inject(app: DaggerApp)
 
@@ -48,7 +27,14 @@ interface AppComponent {
     interface Factory {
 
         fun create(
-            @BindsInstance app : Application
-        ) : AppComponent
+            @BindsInstance
+            context : ContextComponent,
+            @BindsInstance
+            network : NetworkComponent,
+            @BindsInstance
+            database : DatabaseComponent,
+            @BindsInstance
+            sharedPrefs : SharedPreferencesComponent
+        ): AppComponent
     }
 }

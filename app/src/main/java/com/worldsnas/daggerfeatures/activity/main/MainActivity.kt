@@ -21,7 +21,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         DaggerMainComponent
             .builder()
-            .appComponent(findAppComponent())
+            .sharedPreferencesComponent(findAppComponent().provideSharedPrefComponent())
             .build()
             .inject(this)
     }

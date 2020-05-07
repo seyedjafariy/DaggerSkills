@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.worldsnas.daggerfeatures.R
 import com.worldsnas.daggerfeatures.di.findAppComponent
-import com.worldsnas.daggerfeatures.fragments.ListViewModel
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -23,7 +22,7 @@ class ListActivity : AppCompatActivity() {
 
         DaggerListComponent
             .builder()
-            .appComponent(findAppComponent())
+            .databaseComponent(findAppComponent().provideDatabaseComponent())
             .build()
             .inject(this)
 

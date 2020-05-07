@@ -1,4 +1,4 @@
-package com.worldsnas.daggerfeatures.fragments
+package com.worldsnas.daggerfeatures.activity.list
 
 import androidx.lifecycle.ViewModel
 import com.worldsnas.daggerfeatures.network.UserRepository

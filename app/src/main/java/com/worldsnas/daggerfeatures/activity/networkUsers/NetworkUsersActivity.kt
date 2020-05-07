@@ -18,7 +18,7 @@ class NetworkUsersActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         DaggerNetworkUsersComponent.builder()
-            .appComponent(findAppComponent())
+            .networkComponent(findAppComponent().provideNetworkComponent())
             .build()
             .inject(this)
     }
