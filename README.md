@@ -1,6 +1,7 @@
 ## Video
 
-Youtube: [Up your Dagger skills](https://youtu.be/NmdMg-G6Pr0)
+Youtube: [Up your Dagger skills](https://www.youtube.com/playlist?list=PLT2xIm2X7W7h7eCCVnjBjIJ5-aJwVeEzy)
+(live stream record is the last)
 
 ## Variations
 
