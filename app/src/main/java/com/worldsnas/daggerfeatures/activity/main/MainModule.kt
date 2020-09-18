@@ -1,14 +1,11 @@
 package com.worldsnas.daggerfeatures.activity.main
 
-import androidx.lifecycle.ViewModelProvider
-import com.worldsnas.daggerfeatures.ViewModelFactory
-import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 
 @Module
+@InstallIn(ActivityComponent::class)
 abstract class MainModule {
 
-    @Binds
-    abstract fun bindViewModelFactory(factory : ViewModelFactory) :
-            ViewModelProvider.Factory
 }
