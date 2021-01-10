@@ -1,22 +1,25 @@
-package com.worldsnas.daggerfeatures.di.networkcomponent
+package com.worldsnas.daggerfeatures.di
 
-import android.app.Application
+import android.content.Context
 import android.util.Log
 import com.squareup.moshi.Moshi
 import com.worldsnas.daggerfeatures.BuildConfig.DEBUG
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 @Module
+@InstallIn(ApplicationComponent::class)
 object OkHttpModule {
 
     @Provides
-    @JvmStatic
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         val httpLoggingInterceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
             override fun log(message: String) {
@@ -31,13 +34,10 @@ object OkHttpModule {
     }
 
     @Provides
-    @JvmStatic
-    fun provideOkhttpCache(app: Application): Cache =
-        Cache(app.cacheDir, 50_000_000)
+    fun provideOkhttpCache(@ApplicationContext context: Context): Cache =
+        Cache(context.cacheDir, 50_000_000)
 
     @Provides
-    @NetworkScope
-    @JvmStatic
     fun provideClient(
         loggingInterceptor: HttpLoggingInterceptor,
         authInterceptor: Interceptor,
@@ -52,26 +52,19 @@ object OkHttpModule {
 
     @Provides
     @OkHttpQualifier
-    @NetworkScope
-    @JvmStatic
     fun secondOkHttp(client : OkHttpClient): OkHttpClient =
         client.newBuilder()
                 //new logic
             .build()
 
     @Provides
-    @NetworkScope
-    @JvmStatic
     fun provideMoshi() = Moshi.Builder().build()
 
 
     @Provides
-    @JvmStatic
     fun provideMoshiConverter(moshi: Moshi) = MoshiConverterFactory.create(moshi)
 
     @Provides
-    @NetworkScope
-    @JvmStatic
     fun provideRetrofit(
         moshi: MoshiConverterFactory,
         client : Lazy<OkHttpClient>
